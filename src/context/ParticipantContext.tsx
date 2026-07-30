@@ -32,7 +32,7 @@ export function ParticipantProvider({ children }: { children: React.ReactNode })
     if (saved) {
       try {
         return JSON.parse(saved);
-      } catch (e) {
+      } catch {
         return null;
       }
     }
@@ -105,6 +105,7 @@ export function ParticipantProvider({ children }: { children: React.ReactNode })
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useParticipant() {
   const context = useContext(ParticipantContext);
   if (!context) {

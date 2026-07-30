@@ -118,7 +118,7 @@ export default function CrosswordGame() {
     }
   };
 
-  const submitLiveScore = async (currentScore: number) => {
+  const submitLiveScore = useCallback(async (currentScore: number) => {
     if (!participant || submitted || gameOver) return;
     const timeSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
     try {
@@ -132,7 +132,7 @@ export default function CrosswordGame() {
     } catch (err) {
       console.error('Failed to submit live score:', err);
     }
-  };
+  }, [participant, submitted, gameOver]);
 
   const prevScoreRef = useRef(0);
 
@@ -171,7 +171,7 @@ export default function CrosswordGame() {
       prevScoreRef.current = newScore;
       submitLiveScore(newScore);
     }
-  }, [userGrid, gameOver, submitFinalScore]);
+  }, [userGrid, gameOver, submitFinalScore, submitLiveScore]);
 
   const handleCellChange = (row: number, col: number, value: string) => {
     if (crosswordGrid[row][col].letter === null) return;

@@ -122,7 +122,7 @@ export default function EmojiGame() {
 
   const prevScoreRef = useRef(0);
 
-  const submitLiveScore = async (currentScore: number) => {
+  const submitLiveScore = useCallback(async (currentScore: number) => {
     if (!participant || submitted || gameOver) return;
     const timeSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
     try {
@@ -136,7 +136,7 @@ export default function EmojiGame() {
     } catch (err) {
       console.error('Failed to submit live score:', err);
     }
-  };
+  }, [participant, submitted, gameOver]);
 
   useEffect(() => {
     let calculatedScore = 0;
@@ -152,7 +152,7 @@ export default function EmojiGame() {
       prevScoreRef.current = calculatedScore;
       submitLiveScore(calculatedScore);
     }
-  }, [answers, gameOver]);
+  }, [answers, gameOver, submitLiveScore]);
 
   const handleNext = () => {
     if (currentIndex < emojiQuestions.length - 1) {
