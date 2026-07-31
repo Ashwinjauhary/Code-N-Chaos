@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ParticipantProvider, useParticipant } from './context/ParticipantContext';
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Lobby from './pages/Lobby';
 import EmojiGame from './pages/EmojiGame';
@@ -20,7 +21,8 @@ function AppRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/lobby" element={<ProtectedRoute><Lobby /></ProtectedRoute>} />
         <Route path="/game/emoji" element={<ProtectedRoute><EmojiGame /></ProtectedRoute>} />
         <Route path="/game/crossword" element={<ProtectedRoute><CrosswordGame /></ProtectedRoute>} />

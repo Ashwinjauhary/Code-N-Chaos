@@ -144,6 +144,16 @@ export default function MemoryMatchGame() {
   }, [participant, submitted]);
 
   const prevScoreRef = useRef(0);
+  const [timeElapsed, setTimeElapsed] = useState(0);
+
+  useEffect(() => {
+    if (gameStarted && !gameOver && !submitted) {
+      const interval = setInterval(() => {
+        setTimeElapsed(Math.floor((Date.now() - startTimeRef.current) / 1000));
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [gameStarted, gameOver, submitted]);
 
   const submitLiveScore = useCallback(async (currentScore: number) => {
     if (!participant || submitted || gameOver) return;
@@ -281,6 +291,20 @@ export default function MemoryMatchGame() {
             onExpiry={() => submitFinalScore(score)}
             isRunning={gameStarted && !gameOver && !submitted && !showWarningModal}
           />
+          {timeElapsed >= 300 && (
+            <button 
+              className="btn-primary" 
+              style={{ padding: '0.5rem 1rem', background: 'var(--accent-red)', fontSize: '0.9rem', marginLeft: '1rem' }}
+              onClick={() => {
+                if (window.confirm("Are you sure you want to submit your game early?")) {
+                  setGameOver(true);
+                  submitFinalScore(score);
+                }
+              }}
+            >
+              Submit Early
+            </button>
+          )}
         </div>
 
         <div className="memory-grid">
