@@ -108,11 +108,11 @@ export default function Login() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <div className="login-left-pane">
-            <div className="login-header">
-              <div className="logos-flex" style={{ gap: '2.5rem', marginBottom: '1.5rem', justifyContent: 'flex-start', alignItems: 'center' }}>
+            <div className="login-header" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+              <div className="logos-flex" style={{ gap: '2.5rem', marginBottom: '1.5rem', justifyContent: 'center', alignItems: 'center' }}>
                 <img src="/psit_logo.png" alt="PSIT Logo" className="org-logo" style={{ height: '65px' }} />
                 <img src="/codester_logo.png" alt="Codester Logo" className="org-logo" style={{ height: '80px' }} />
-                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" style={{ height: '55px' }} />
+                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" style={{ height: '110px' }} />
               </div>
               
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', width: 'max-content' }}>
@@ -143,7 +143,7 @@ export default function Login() {
             <p className="login-subtitle">The Ultimate Tech Quest — Round 2</p>
             </div>
             
-            <div className="login-footer">
+            <div className="login-footer" style={{ textAlign: 'center' }}>
               <p>Tech Gaming Arena • 3 Games • Live Leaderboard</p>
             </div>
           </div>
