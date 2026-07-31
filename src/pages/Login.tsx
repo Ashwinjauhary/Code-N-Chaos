@@ -109,33 +109,33 @@ export default function Login() {
         >
           <div className="login-left-pane">
             <div className="login-header">
-              <div className="logos-flex" style={{ gap: '1.5rem', marginBottom: '2rem', justifyContent: 'flex-start' }}>
-                <img src="/psit_logo.png" alt="PSIT Logo" className="org-logo" style={{ height: '70px' }} />
-                <img src="/codester_logo.png" alt="Codester Logo" className="org-logo" style={{ height: '70px' }} />
-                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" style={{ height: '70px' }} />
+              <div className="logos-flex" style={{ gap: '2.5rem', marginBottom: '1.5rem', justifyContent: 'flex-start', alignItems: 'center' }}>
+                <img src="/psit_logo.png" alt="PSIT Logo" className="org-logo" style={{ height: '65px' }} />
+                <img src="/codester_logo.png" alt="Codester Logo" className="org-logo" style={{ height: '80px' }} />
+                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" style={{ height: '55px' }} />
               </div>
               
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem', marginBottom: '1.5rem', width: '100%', maxWidth: '400px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: '1.2', flex: 1 }}>
-                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'right' }}>THE CODESTER</span>
-                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'right' }}>CLUB</span>
-                  </div>
-                  <motion.div
-                    className="login-logo"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                    style={{ marginBottom: 0, fontSize: '2rem', width: 'auto', height: 'auto', background: 'none', boxShadow: 'none', flexShrink: 0 }}
-                  >
-                    ⚡
-                  </motion.div>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2', flex: 1 }}>
-                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'left' }}>THE LOGIX</span>
-                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'left' }}>CLUB</span>
-                  </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', width: 'max-content' }}>
+                <div style={{ 
+                  backgroundColor: '#000', 
+                  color: '#fff', 
+                  padding: '0.5rem 1.5rem', 
+                  textTransform: 'uppercase', 
+                  fontWeight: '800',
+                  letterSpacing: '1px',
+                  fontSize: '0.95rem',
+                  whiteSpace: 'nowrap'
+                }}>
+                  THE CODESTER CLUB & THE LOGIX CLUB
                 </div>
-                <p className="login-club" style={{ marginBottom: 0, marginTop: '0.5rem', letterSpacing: '2px', textAlign: 'center' }}>ORGANIZES</p>
+                
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.8rem' }}>
+                  <span style={{ fontSize: '1.5rem', lineHeight: 0 }}>•</span>
+                  <div style={{ height: '2px', width: '40px', backgroundColor: '#000' }} />
+                  <span className="login-club" style={{ marginBottom: 0, letterSpacing: '2px', fontWeight: 'bold' }}>ORGANIZES</span>
+                  <div style={{ height: '2px', width: '40px', backgroundColor: '#000' }} />
+                  <span style={{ fontSize: '1.5rem', lineHeight: 0 }}>•</span>
+                </div>
               </div>
               <h1 className="login-title">
                 Code <span className="highlight">N</span> Chaos
