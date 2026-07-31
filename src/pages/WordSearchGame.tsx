@@ -42,8 +42,16 @@ export default function WordSearchGame() {
       if (!participant) return;
       const { allowed, completed } = await validateGameAccess(participant.id, 'wordsearch', navigate);
       
-      if (!allowed) return; // validateGameAccess handles redirection or reloading
+      if (!allowed) return;
       
+      if (!completed && foundWords.size > 0) {
+         sessionStorage.removeItem(`wordsearch_found_words_${participant.id}`);
+         sessionStorage.removeItem(`wordsearch_score_${participant.id}`);
+         sessionStorage.removeItem(`game_start_time_${participant.id}_wordsearch`);
+         window.location.reload();
+         return;
+      }
+
       if (completed) {
         setGameOver(true);
         setSubmitted(true);

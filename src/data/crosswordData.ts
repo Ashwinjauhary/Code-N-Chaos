@@ -55,6 +55,33 @@ export const crosswordClues: CrosswordClue[] = [
     startRow: 10,
     startCol: 0,
   },
+  {
+    id: 'a6',
+    direction: 'across',
+    number: 10,
+    clue: 'JavaScript runtime built on V8 engine',
+    answer: 'NODE',
+    startRow: 2,
+    startCol: 0,
+  },
+  {
+    id: 'a7',
+    direction: 'across',
+    number: 11,
+    clue: 'Volatile memory for fast data access (abbr.)',
+    answer: 'RAM',
+    startRow: 8,
+    startCol: 0,
+  },
+  {
+    id: 'a8',
+    direction: 'across',
+    number: 13,
+    clue: 'Indexed collection of elements in programming',
+    answer: 'ARRAY',
+    startRow: 12,
+    startCol: 0,
+  },
   // Down
   {
     id: 'd1',
@@ -100,7 +127,25 @@ export const crosswordClues: CrosswordClue[] = [
     answer: 'LINUX',
     startRow: 8,
     startCol: 7,
-  }
+  },
+  {
+    id: 'd6',
+    direction: 'down',
+    number: 4,
+    clue: 'Unwanted junk email messages',
+    answer: 'SPAM',
+    startRow: 5,
+    startCol: 2,
+  },
+  {
+    id: 'd7',
+    direction: 'down',
+    number: 12,
+    clue: 'Raw information processed by computers',
+    answer: 'DATA',
+    startRow: 9,
+    startCol: 3,
+  },
 ];
 
 export const GRID_ROWS = 14;
@@ -134,5 +179,5 @@ crosswordClues.forEach((clue) => {
   }
 });
 
-export const CROSSWORD_GAME_DURATION_SECONDS = 20 * 60;
+export const CROSSWORD_GAME_DURATION_SECONDS = 600;
 export const POINTS_PER_CROSSWORD_WORD = 5;

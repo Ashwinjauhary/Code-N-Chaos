@@ -17,6 +17,7 @@ interface GameCompletion {
 const GAMES = [
   { id: 'emoji', name: 'Emoji → Tech Word', icon: '🎯', route: '/game/emoji', description: 'Guess the tech term from emoji clues' },
   { id: 'crossword', name: 'Tech Crossword', icon: '📝', route: '/game/crossword', description: 'Complete the CS crossword puzzle' },
+  { id: 'memorymatch', name: 'Memory Match', icon: '🧠', route: '/game/memorymatch', description: 'Match tech terms with their emojis' },
   { id: 'wordsearch', name: 'Word Search', icon: '🔍', route: '/game/wordsearch', description: 'Find hidden tech terms in the grid' },
 ];
 
@@ -52,6 +53,8 @@ export default function Lobby() {
               key.includes('emoji_') || 
               key.includes('crossword_') || 
               key.includes('wordsearch_') ||
+              key.includes('memory_') ||
+              key.includes('mm_') ||
               key.includes('game_start_time_')
             )) {
               keysToRemove.push(key);

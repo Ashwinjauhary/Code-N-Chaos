@@ -33,6 +33,8 @@ export async function validateGameAccess(
           key.includes('emoji_') || 
           key.includes('crossword_') || 
           key.includes('wordsearch_') ||
+          key.includes('memory_') ||
+          key.includes('mm_') ||
           key.includes('game_start_time_')
         )) {
           keysToRemove.push(key);

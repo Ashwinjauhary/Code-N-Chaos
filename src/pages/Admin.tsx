@@ -15,8 +15,14 @@ interface ParticipantScore {
   class: string;
   section: string;
   emoji_score?: number;
+  emoji_time?: number;
   crossword_score?: number;
+  crossword_time?: number;
+  memorymatch_score?: number;
+  memorymatch_time?: number;
+  memorymatch_moves?: number;
   wordsearch_score?: number;
+  wordsearch_time?: number;
 }
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || '';
@@ -70,19 +76,29 @@ export default function Admin() {
       // Fetch individual game scores
       const { data: allScores } = await supabase
         .from('game_scores')
-        .select('participant_id, game, score');
+        .select('participant_id, game, score, completion_time_seconds, metadata');
 
-      const scoreMap: Record<string, Record<string, number>> = {};
+      const scoreMap: Record<string, Record<string, { score: number, time: number, moves?: number }>> = {};
       allScores?.forEach((s: any) => {
         if (!scoreMap[s.participant_id]) scoreMap[s.participant_id] = {};
-        scoreMap[s.participant_id][s.game] = s.score;
+        scoreMap[s.participant_id][s.game] = {
+          score: s.score,
+          time: s.completion_time_seconds,
+          moves: s.metadata?.moves
+        };
       });
 
       const enriched = leaderboard.map((p: any) => ({
         ...p,
-        emoji_score: scoreMap[p.participant_id]?.emoji,
-        crossword_score: scoreMap[p.participant_id]?.crossword,
-        wordsearch_score: scoreMap[p.participant_id]?.wordsearch,
+        emoji_score: scoreMap[p.participant_id]?.emoji?.score,
+        emoji_time: scoreMap[p.participant_id]?.emoji?.time,
+        crossword_score: scoreMap[p.participant_id]?.crossword?.score,
+        crossword_time: scoreMap[p.participant_id]?.crossword?.time,
+        memorymatch_score: scoreMap[p.participant_id]?.memorymatch?.score,
+        memorymatch_time: scoreMap[p.participant_id]?.memorymatch?.time,
+        memorymatch_moves: scoreMap[p.participant_id]?.memorymatch?.moves,
+        wordsearch_score: scoreMap[p.participant_id]?.wordsearch?.score,
+        wordsearch_time: scoreMap[p.participant_id]?.wordsearch?.time,
       }));
 
       setParticipants(enriched);
@@ -123,7 +139,7 @@ export default function Admin() {
   };
 
   const unlockAll = () => {
-    updateEventState({ unlocked_games: ['emoji', 'crossword', 'wordsearch'] });
+    updateEventState({ unlocked_games: ['emoji', 'crossword', 'wordsearch', 'memorymatch'] });
   };
 
   const resetEvent = async () => {
@@ -141,7 +157,7 @@ export default function Admin() {
   const forceSubmitMissing = async () => {
     if (!window.confirm("Are you sure? This will submit a score of 0 for any participant who hasn't completed unlocked games.")) return;
     setLoading(true);
-    const games = ['emoji', 'crossword', 'wordsearch'];
+    const games = ['emoji', 'crossword', 'memorymatch', 'wordsearch'];
     
     // We will find all missing scores for unlocked games and submit 0
     const promises: any[] = [];
@@ -152,7 +168,8 @@ export default function Admin() {
           const hasScore = 
             (game === 'emoji' && p.emoji_score !== undefined) ||
             (game === 'crossword' && p.crossword_score !== undefined) ||
-            (game === 'wordsearch' && p.wordsearch_score !== undefined);
+            (game === 'wordsearch' && p.wordsearch_score !== undefined) ||
+            (game === 'memorymatch' && p.memorymatch_score !== undefined);
             
           if (!hasScore) {
             promises.push(
@@ -202,7 +219,7 @@ export default function Admin() {
   };
 
   const exportCSV = () => {
-    const headers = ['Rank', 'Name', 'Roll Number', 'Class', 'Section', 'Email', 'Phone', 'Emoji', 'Crossword', 'Word Search', 'Total Score', 'Total Time (s)', 'Games Completed'];
+    const headers = ['Rank', 'Name', 'Roll Number', 'Class', 'Section', 'Email', 'Phone', 'Emoji Score', 'Emoji Time (s)', 'Crossword Score', 'Crossword Time (s)', 'Memory Match Score', 'Memory Match Time (s)', 'Memory Match Moves', 'Word Search Score', 'Word Search Time (s)', 'Total Score', 'Total Time (s)', 'Games Completed'];
     const sorted = [...participants].sort((a, b) => b.total_score - a.total_score || a.total_time - b.total_time);
     const rows = sorted.map((p, i) => [
       i + 1,
@@ -213,8 +230,14 @@ export default function Admin() {
       p.email,
       p.phone_number,
       p.emoji_score ?? 0,
+      p.emoji_time ?? 0,
       p.crossword_score ?? 0,
+      p.crossword_time ?? 0,
+      p.memorymatch_score ?? 0,
+      p.memorymatch_time ?? 0,
+      p.memorymatch_moves ?? 0,
       p.wordsearch_score ?? 0,
+      p.wordsearch_time ?? 0,
       p.total_score,
       p.total_time,
       p.games_completed,
@@ -318,7 +341,7 @@ export default function Admin() {
         <section className="admin-section">
           <h2>Unlock Games</h2>
           <div className="admin-controls">
-            {['emoji', 'crossword', 'wordsearch'].map((game) => (
+            {['emoji', 'crossword', 'wordsearch', 'memorymatch'].map((game) => (
               <button
                 key={game}
                 className={`btn-game-toggle ${unlockedGames.includes(game) ? 'active' : ''}`}
@@ -326,7 +349,7 @@ export default function Admin() {
                 disabled={loading}
               >
                 {unlockedGames.includes(game) ? '🔓' : '🔒'}{' '}
-                {game === 'emoji' ? 'Emoji Game' : game === 'crossword' ? 'Crossword' : 'Word Search'}
+                {game === 'emoji' ? 'Emoji Game' : game === 'crossword' ? 'Crossword' : game === 'wordsearch' ? 'Word Search' : 'Memory Match'}
               </button>
             ))}
             <button className="btn-secondary" onClick={unlockAll} disabled={loading}>
@@ -435,8 +458,12 @@ export default function Admin() {
                   </th>
                   <th>Class & Section</th>
                   <th>Contact</th>
+                  <th>Emoji</th>
+                  <th>Crossword</th>
+                  <th>Memory Match</th>
+                  <th>Word Search</th>
                   <th className="sortable" onClick={() => handleSort('total_score')}>
-                    Score {sortBy === 'total_score' && (sortDir === 'asc' ? '↑' : '↓')}
+                    Total Score {sortBy === 'total_score' && (sortDir === 'asc' ? '↑' : '↓')}
                   </th>
                   <th>Games</th>
                 </tr>
@@ -457,9 +484,26 @@ export default function Admin() {
                       <div style={{ fontSize: '0.9em' }}>{p.phone_number}</div>
                       <div style={{ fontSize: '0.8em', opacity: 0.7 }}>{p.email}</div>
                     </td>
+                    <td>
+                      <div>{p.emoji_score ?? '-'}</div>
+                      <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.emoji_time ? `${p.emoji_time}s` : ''}</div>
+                    </td>
+                    <td>
+                      <div>{p.crossword_score ?? '-'}</div>
+                      <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.crossword_time ? `${p.crossword_time}s` : ''}</div>
+                    </td>
+                    <td>
+                      <div>{p.memorymatch_score ?? '-'}</div>
+                      <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.memorymatch_time ? `${p.memorymatch_time}s` : ''}</div>
+                      {p.memorymatch_moves && <div style={{ fontSize: '0.8em', color: 'var(--accent-orange)' }}>{p.memorymatch_moves} moves</div>}
+                    </td>
+                    <td>
+                      <div>{p.wordsearch_score ?? '-'}</div>
+                      <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.wordsearch_time ? `${p.wordsearch_time}s` : ''}</div>
+                    </td>
                     <td className="score-cell">{p.total_score}</td>
                     <td>
-                      <div>{p.games_completed}/3</div>
+                      <div>{p.games_completed}/4</div>
                       <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{Math.floor(p.total_time / 60)}m {p.total_time % 60}s</div>
                     </td>
                   </tr>

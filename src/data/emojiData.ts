@@ -114,4 +114,4 @@ export const emojiQuestions: EmojiQuestion[] = [
 ];
 
 export const POINTS_PER_EMOJI = 10;
-export const EMOJI_GAME_DURATION_SECONDS = 20 * 60; // 20 minutes
+export const EMOJI_GAME_DURATION_SECONDS = 420;

@@ -986,8 +986,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-height: 500px;
-  overflow-y: auto;
 }
 
 .clues-section h3 {
@@ -1135,6 +1133,129 @@ body {
   border-color: rgba(52, 211, 153, 0.3);
   color: var(--accent-green);
   text-decoration: line-through;
+}
+
+/* ============================================================
+   Memory Match Game
+   ============================================================ */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.memory-card {
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+  position: relative;
+  border-radius: var(--radius-md);
+  transition: transform 0.15s ease;
+}
+
+.memory-card .card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  padding: 0.4rem;
+  text-align: center;
+}
+
+.card-front {
+  background: var(--bg-card);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-brutal);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.card-front span {
+  font-size: 1.8rem;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-brutal);
+}
+
+.card-term .card-back {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.card-definition .card-back {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.card-back .term-text,
+.card-back .definition-text {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+.memory-card.matched .card-front,
+.memory-card.matched .card-back {
+  opacity: 0.7;
+}
+
+.memory-card.matched .card-back {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.3);
+}
+
+.memory-card.matched.card-term .card-back {
+  background: var(--accent-green);
+}
+
+.memory-card.matched.card-definition .card-back {
+  background: var(--accent-green);
+}
+
+.game-stats {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.game-stats .stat {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.game-stats .stat strong {
+  color: var(--accent-cyan);
 }
 
 /* ============================================================
@@ -1679,6 +1800,16 @@ body {
     width: 24px;
     height: 24px;
     font-size: 0.65rem;
+  }
+
+  .memory-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+  }
+
+  .card-back .term-text,
+  .card-back .definition-text {
+    font-size: 1.8rem;
   }
 }
 .anti-cheat-active { user-select: none; -webkit-user-select: none; }

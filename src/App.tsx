@@ -6,6 +6,7 @@ import Lobby from './pages/Lobby';
 import EmojiGame from './pages/EmojiGame';
 import CrosswordGame from './pages/CrosswordGame';
 import WordSearchGame from './pages/WordSearchGame';
+import MemoryMatchGame from './pages/MemoryMatchGame';
 import Leaderboard from './pages/Leaderboard';
 import Admin from './pages/Admin';
 
@@ -24,6 +25,7 @@ function AppRoutes() {
         <Route path="/game/emoji" element={<ProtectedRoute><EmojiGame /></ProtectedRoute>} />
         <Route path="/game/crossword" element={<ProtectedRoute><CrosswordGame /></ProtectedRoute>} />
         <Route path="/game/wordsearch" element={<ProtectedRoute><WordSearchGame /></ProtectedRoute>} />
+        <Route path="/game/memorymatch" element={<ProtectedRoute><MemoryMatchGame /></ProtectedRoute>} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<Navigate to="/" replace />} />

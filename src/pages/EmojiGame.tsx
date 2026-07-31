@@ -56,8 +56,16 @@ export default function EmojiGame() {
       if (!participant) return;
       const { allowed, completed } = await validateGameAccess(participant.id, 'emoji', navigate);
       
-      if (!allowed) return; // validateGameAccess handles redirection or reloading
+      if (!allowed) return;
       
+      if (!completed && answers.some(a => a !== '')) {
+         sessionStorage.removeItem(`emoji_answers_${participant.id}`);
+         sessionStorage.removeItem(`emoji_score_${participant.id}`);
+         sessionStorage.removeItem(`game_start_time_${participant.id}_emoji`);
+         window.location.reload();
+         return;
+      }
+
       if (completed) {
         setGameOver(true);
         setSubmitted(true);

@@ -45,8 +45,17 @@ export default function CrosswordGame() {
       if (!participant) return;
       const { allowed, completed } = await validateGameAccess(participant.id, 'crossword', navigate);
       
-      if (!allowed) return; // validateGameAccess handles redirection or reloading
+      if (!allowed) return;
       
+      if (!completed && userGrid.some(row => row.some(cell => cell !== ''))) {
+         sessionStorage.removeItem(`crossword_grid_${participant.id}`);
+         sessionStorage.removeItem(`crossword_correct_words_${participant.id}`);
+         sessionStorage.removeItem(`crossword_score_${participant.id}`);
+         sessionStorage.removeItem(`game_start_time_${participant.id}_crossword`);
+         window.location.reload();
+         return;
+      }
+
       if (completed) {
         setGameOver(true);
         setSubmitted(true);

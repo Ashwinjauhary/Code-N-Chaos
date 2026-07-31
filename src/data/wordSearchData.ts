@@ -161,4 +161,4 @@ export const wordSearchPlacements = generated.placements;
 Math.random = originalRandom;
 
 export const POINTS_PER_WORD = 2;
-export const WORDSEARCH_GAME_DURATION_SECONDS = 20 * 60; // 20 minutes
+export const WORDSEARCH_GAME_DURATION_SECONDS = 1500;
