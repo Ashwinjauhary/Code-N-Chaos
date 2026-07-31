@@ -94,7 +94,6 @@ export default function CrosswordGame() {
   const submitFinalScore = useCallback(async (finalScore: number) => {
     if (submitted || !participant) return;
     setSubmitted(true);
-    setGameOver(true);
 
     const timeSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
 
@@ -106,8 +105,10 @@ export default function CrosswordGame() {
         p_time_seconds: timeSeconds,
         p_completed: true,
       });
+      setGameOver(true);
     } catch (err) {
       console.error('Failed to submit score:', err);
+      setGameOver(true);
     }
   }, [participant, submitted]);
 

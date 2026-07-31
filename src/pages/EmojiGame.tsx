@@ -113,7 +113,6 @@ export default function EmojiGame() {
 
     setFinalScore(calculatedScore);
     setResults(calculatedResults);
-    setGameOver(true);
 
     try {
       await supabase.rpc('submit_score', {
@@ -123,8 +122,11 @@ export default function EmojiGame() {
         p_time_seconds: timeSeconds,
         p_completed: true,
       });
+      setGameOver(true);
     } catch (err) {
       console.error('Failed to submit score:', err);
+      // Still show game over if offline/failed so they don't get stuck
+      setGameOver(true);
     }
   }, [answers, participant, submitted]);
 

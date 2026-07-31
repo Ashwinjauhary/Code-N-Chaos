@@ -123,7 +123,6 @@ export default function MemoryMatchGame() {
   const submitFinalScore = useCallback(async (finalScore: number) => {
     if (submitted || !participant) return;
     setSubmitted(true);
-    setGameOver(true);
 
     const timeSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
 
@@ -136,8 +135,10 @@ export default function MemoryMatchGame() {
         p_completed: true,
         p_metadata: { moves },
       });
+      setGameOver(true);
     } catch (err) {
       console.error('Failed to submit score:', err);
+      setGameOver(true);
     }
   }, [participant, submitted]);
 
