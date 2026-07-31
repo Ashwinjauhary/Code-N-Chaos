@@ -68,10 +68,10 @@ export default function Landing() {
               className="organizers-section"
             >
               <p className="organizers-text">Organized & Sponsored by</p>
-              <div className="logos-flex">
-                <img src="/psit_logo.png" alt="PSIT Logo" className="org-logo" />
-                <img src="/codester_logo.png" alt="Codester Logo" className="org-logo" />
-                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" />
+              <div className="logos-flex" style={{ gap: '2.5rem', justifyContent: 'center', alignItems: 'center' }}>
+                <img src="/psit_logo.png" alt="PSIT Logo" className="org-logo" style={{ height: '65px' }} />
+                <img src="/codester_logo.png" alt="Codester Logo" className="org-logo" style={{ height: '80px' }} />
+                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" style={{ height: '110px' }} />
               </div>
             </motion.div>
           </div>
