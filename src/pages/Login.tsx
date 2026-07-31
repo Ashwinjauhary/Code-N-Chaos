@@ -107,8 +107,9 @@ export default function Login() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <div className="login-header">
-            <motion.div
+          <div className="login-left-pane">
+            <div className="login-header">
+              <motion.div
               className="login-logo"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -116,11 +117,16 @@ export default function Login() {
             >
               ⚡
             </motion.div>
+            <p className="login-club">The Codester Club x The Logix Club Organizes</p>
             <h1 className="login-title">
               Code <span className="highlight">N</span> Chaos
             </h1>
             <p className="login-subtitle">The Ultimate Tech Quest — Round 2</p>
-            <p className="login-club">Codester Club • PSIT Kanpur</p>
+            </div>
+            
+            <div className="login-footer">
+              <p>Tech Gaming Arena • 3 Games • Live Leaderboard</p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">
@@ -130,7 +136,7 @@ export default function Login() {
                 id="name"
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z\s]/g, ''))}
                 placeholder="Enter your full name"
                 autoComplete="off"
                 disabled={loading}
@@ -143,7 +149,7 @@ export default function Login() {
                 id="roll-number"
                 type="text"
                 value={rollNumber}
-                onChange={(e) => setRollNumber(e.target.value)}
+                onChange={(e) => setRollNumber(e.target.value.replace(/\D/g, ''))}
                 placeholder="Enter your roll number"
                 autoComplete="off"
                 disabled={loading}
@@ -169,7 +175,8 @@ export default function Login() {
                 id="phone-number"
                 type="tel"
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                maxLength={10}
                 placeholder="Enter your phone number"
                 autoComplete="tel"
                 disabled={loading}
@@ -183,7 +190,7 @@ export default function Login() {
                   id="class-name"
                   type="text"
                   value={className}
-                  onChange={(e) => setClassName(e.target.value)}
+                  onChange={(e) => setClassName(e.target.value.toUpperCase())}
                   placeholder="e.g. B.Tech CS"
                   autoComplete="off"
                   disabled={loading}
@@ -196,7 +203,7 @@ export default function Login() {
                   id="section"
                   type="text"
                   value={section}
-                  onChange={(e) => setSection(e.target.value)}
+                  onChange={(e) => setSection(e.target.value.toUpperCase())}
                   placeholder="e.g. A"
                   autoComplete="off"
                   disabled={loading}
@@ -231,10 +238,6 @@ export default function Login() {
               )}
             </motion.button>
           </form>
-
-          <div className="login-footer">
-            <p>Tech Gaming Arena • 3 Games • Live Leaderboard</p>
-          </div>
         </motion.div>
       </div>
     </Layout>

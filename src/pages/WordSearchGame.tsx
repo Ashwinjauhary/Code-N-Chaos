@@ -80,6 +80,7 @@ export default function WordSearchGame() {
   const submitFinalScore = useCallback(async (finalScore: number) => {
     if (submitted || !participant) return;
     setSubmitted(true);
+    setGameOver(true);
 
     const timeSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
 
