@@ -123,8 +123,9 @@ export default function EmojiGame() {
         p_completed: true,
       });
       setGameOver(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to submit score:', err);
+      alert('Error saving score: ' + (err.message || 'Unknown Error') + '\n\nPlease verify your Supabase database has the latest submit_score function.');
       // Still show game over if offline/failed so they don't get stuck
       setGameOver(true);
     }

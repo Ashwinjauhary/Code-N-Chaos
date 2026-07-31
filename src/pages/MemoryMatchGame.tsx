@@ -136,8 +136,9 @@ export default function MemoryMatchGame() {
         p_metadata: { moves },
       });
       setGameOver(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to submit score:', err);
+      alert('Error saving score: ' + err.message + '\n\nMake sure you ran the Supabase SQL migration!');
       setGameOver(true);
     }
   }, [participant, submitted]);
