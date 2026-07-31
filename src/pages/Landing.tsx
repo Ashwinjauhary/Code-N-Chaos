@@ -50,6 +50,20 @@ export default function Landing() {
                 ENTER ARENA 🚀
               </button>
             </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="organizers-section"
+            >
+              <p className="organizers-text">Organized & Sponsored by</p>
+              <div className="logos-flex">
+                <img src="/psit_logo.png" alt="PSIT Logo" className="org-logo" />
+                <img src="/codester_logo.png" alt="Codester Logo" className="org-logo" />
+                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" />
+              </div>
+            </motion.div>
           </div>
           
           {/* Decorative floating elements */}

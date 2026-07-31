@@ -109,18 +109,37 @@ export default function Login() {
         >
           <div className="login-left-pane">
             <div className="login-header">
-              <motion.div
-              className="login-logo"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            >
-              ⚡
-            </motion.div>
-            <p className="login-club">The Codester Club x The Logix Club Organizes</p>
-            <h1 className="login-title">
-              Code <span className="highlight">N</span> Chaos
-            </h1>
+              <div className="logos-flex" style={{ gap: '1.5rem', marginBottom: '2rem', justifyContent: 'flex-start' }}>
+                <img src="/psit_logo.png" alt="PSIT Logo" className="org-logo" style={{ height: '70px' }} />
+                <img src="/codester_logo.png" alt="Codester Logo" className="org-logo" style={{ height: '70px' }} />
+                <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" style={{ height: '70px' }} />
+              </div>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem', marginBottom: '1.5rem', alignSelf: 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2' }}>
+                    <span className="login-club" style={{ marginBottom: 0 }}>THE CODESTER</span>
+                    <span className="login-club" style={{ marginBottom: 0 }}>CLUB</span>
+                  </div>
+                  <motion.div
+                    className="login-logo"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+                    style={{ marginBottom: 0, fontSize: '2rem', width: 'auto', height: 'auto', background: 'none', boxShadow: 'none' }}
+                  >
+                    ⚡
+                  </motion.div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2' }}>
+                    <span className="login-club" style={{ marginBottom: 0 }}>THE LOGIX</span>
+                    <span className="login-club" style={{ marginBottom: 0 }}>CLUB</span>
+                  </div>
+                </div>
+                <p className="login-club" style={{ marginBottom: 0, marginTop: '0.5rem', letterSpacing: '2px' }}>ORGANIZES</p>
+              </div>
+              <h1 className="login-title">
+                Code <span className="highlight">N</span> Chaos
+              </h1>
             <p className="login-subtitle">The Ultimate Tech Quest — Round 2</p>
             </div>
             
