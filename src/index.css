@@ -2054,6 +2054,12 @@ body {
   .game-cell { width: 30px !important; height: 30px !important; font-size: 1rem !important; }
   .memory-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 0.5rem !important; }
   .memory-card { height: 70px !important; font-size: 2rem !important; }
+  .crossword-layout { flex-direction: column !important; }
+  .crossword-grid-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 10px; }
+  .crossword-grid { min-width: min-content; margin: 0 auto; }
+  .crossword-cell { width: 35px !important; height: 35px !important; }
+  .cell-input { font-size: 1.2rem !important; }
+  .clues-section { width: 100% !important; }
 }
 @media (max-width: 480px) {
   html { font-size: 12px; }
