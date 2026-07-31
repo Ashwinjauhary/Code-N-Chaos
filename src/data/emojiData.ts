@@ -20,9 +20,9 @@ export const emojiQuestions: EmojiQuestion[] = [
   },
   {
     id: 3,
-    emojis: '🤖 + 🧠',
-    answer: 'Artificial Intelligence',
-    acceptedAnswers: ['artificial intelligence', 'ai', 'a.i.', 'a.i'],
+    emojis: '💻 + 🧠',
+    answer: 'CPU',
+    acceptedAnswers: ['cpu', 'central processing unit', 'processor'],
   },
   {
     id: 4,
@@ -36,12 +36,7 @@ export const emojiQuestions: EmojiQuestion[] = [
     answer: 'Cloud Computing',
     acceptedAnswers: ['cloud computing', 'cloud'],
   },
-  {
-    id: 6,
-    emojis: '🔒 + 🌍',
-    answer: 'HTTPS',
-    acceptedAnswers: ['https', 'http secure', 'ssl'],
-  },
+
   {
     id: 7,
     emojis: '🔐 + 🔑',
@@ -65,6 +60,56 @@ export const emojiQuestions: EmojiQuestion[] = [
     emojis: '📦 + 🚢',
     answer: 'Docker',
     acceptedAnswers: ['docker'],
+  },
+  {
+    id: 11,
+    emojis: '🧱 + ⛓️',
+    answer: 'Blockchain',
+    acceptedAnswers: ['blockchain', 'block chain'],
+  },
+  {
+    id: 12,
+    emojis: '🐧 + 💻',
+    answer: 'Linux',
+    acceptedAnswers: ['linux', 'ubuntu'],
+  },
+  {
+    id: 13,
+    emojis: '🍎 + 💻',
+    answer: 'macOS',
+    acceptedAnswers: ['macos', 'mac', 'apple', 'mac os'],
+  },
+  {
+    id: 14,
+    emojis: '🔥 + 🦊',
+    answer: 'Firefox',
+    acceptedAnswers: ['firefox', 'mozilla', 'mozilla firefox'],
+  },
+  {
+    id: 15,
+    emojis: '🗑️ + ♻️',
+    answer: 'Recycle Bin',
+    acceptedAnswers: ['recycle bin', 'recyclebin', 'recycle', 'trash'],
+  },
+  {
+    id: 16,
+    emojis: '⚛️ + 🌐',
+    answer: 'React',
+    acceptedAnswers: ['react', 'reactjs', 'react js', 'react.js'],
+  },
+
+  {
+    id: 18,
+    emojis: '📡 + 📶',
+    answer: 'Wi-Fi',
+    acceptedAnswers: ['wi-fi', 'wifi', 'wireless', 'network'],
+  },
+
+  {
+    id: 20,
+    emojis: '🌐 + 🕸️',
+    answer: 'World Wide Web',
+    acceptedAnswers: ['world wide web', 'www', 'web'],
   },
 ];
 
