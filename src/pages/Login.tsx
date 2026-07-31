@@ -115,27 +115,27 @@ export default function Login() {
                 <img src="/logix_logo.png" alt="Logix Club Logo" className="org-logo" style={{ height: '70px' }} />
               </div>
               
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem', marginBottom: '1.5rem', alignSelf: 'flex-start' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2' }}>
-                    <span className="login-club" style={{ marginBottom: 0 }}>THE CODESTER</span>
-                    <span className="login-club" style={{ marginBottom: 0 }}>CLUB</span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.2rem', marginBottom: '1.5rem', width: '100%', maxWidth: '400px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: '1.2', flex: 1 }}>
+                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'right' }}>THE CODESTER</span>
+                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'right' }}>CLUB</span>
                   </div>
                   <motion.div
                     className="login-logo"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                    style={{ marginBottom: 0, fontSize: '2rem', width: 'auto', height: 'auto', background: 'none', boxShadow: 'none' }}
+                    style={{ marginBottom: 0, fontSize: '2rem', width: 'auto', height: 'auto', background: 'none', boxShadow: 'none', flexShrink: 0 }}
                   >
                     ⚡
                   </motion.div>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2' }}>
-                    <span className="login-club" style={{ marginBottom: 0 }}>THE LOGIX</span>
-                    <span className="login-club" style={{ marginBottom: 0 }}>CLUB</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2', flex: 1 }}>
+                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'left' }}>THE LOGIX</span>
+                    <span className="login-club" style={{ marginBottom: 0, textAlign: 'left' }}>CLUB</span>
                   </div>
                 </div>
-                <p className="login-club" style={{ marginBottom: 0, marginTop: '0.5rem', letterSpacing: '2px' }}>ORGANIZES</p>
+                <p className="login-club" style={{ marginBottom: 0, marginTop: '0.5rem', letterSpacing: '2px', textAlign: 'center' }}>ORGANIZES</p>
               </div>
               <h1 className="login-title">
                 Code <span className="highlight">N</span> Chaos
