@@ -76,6 +76,19 @@ export default function CrosswordGame() {
       sessionStorage.setItem(`crossword_score_${participant.id}`, score.toString());
     }
   }, [participant, userGrid, correctWords, score]);
+
+  // Prevent accidental reload
+  useEffect(() => {
+    if (gameOver || !gameStarted) return;
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+      return '';
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [gameOver, gameStarted]);
+
   const getInitialStartTime = () => {
     if (!participant) return Date.now();
     const key = `game_start_time_${participant.id}_crossword`;

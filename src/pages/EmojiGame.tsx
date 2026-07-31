@@ -81,6 +81,18 @@ export default function EmojiGame() {
     }
   }, [participant, answers, finalScore]);
   
+  // Prevent accidental reload
+  useEffect(() => {
+    if (gameOver || !gameStarted) return;
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+      return '';
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [gameOver, gameStarted]);
+
   const getInitialStartTime = () => {
     if (!participant) return Date.now();
     const key = `game_start_time_${participant.id}_emoji`;

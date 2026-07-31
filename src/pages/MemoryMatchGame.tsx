@@ -101,6 +101,18 @@ export default function MemoryMatchGame() {
     checkCompletion();
   }, [participant, navigate]);
 
+  // Prevent accidental reload
+  useEffect(() => {
+    if (gameOver || !gameStarted) return;
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+      return '';
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [gameOver, gameStarted]);
+
   // Persist state to session storage
   useEffect(() => {
     if (participant) {

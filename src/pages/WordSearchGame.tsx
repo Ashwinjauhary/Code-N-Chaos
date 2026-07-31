@@ -85,6 +85,18 @@ export default function WordSearchGame() {
     }
   }, [participant, foundWords, foundCells, score]);
 
+  // Prevent accidental reload
+  useEffect(() => {
+    if (gameOver) return;
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+      return '';
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [gameOver]);
+
   const submitFinalScore = useCallback(async (finalScore: number) => {
     if (submitted || !participant) return;
     setSubmitted(true);
