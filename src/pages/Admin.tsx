@@ -6,6 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
 import { emojiQuestions } from '../data/emojiData';
 import { crosswordGrid, GRID_ROWS, GRID_COLS } from '../data/crosswordData';
 import { WORD_LIST, wordSearchPlacements, wordSearchGrid } from '../data/wordSearchData';
+import { memoryPairs } from '../data/memoryMatchData';
 
 interface ParticipantScore {
   participant_id: string;
@@ -416,6 +417,7 @@ export default function Admin() {
             <button className="btn-secondary" onClick={() => setShowAnswers('emoji')}>Emoji Answers</button>
             <button className="btn-secondary" onClick={() => setShowAnswers('crossword')}>Crossword Answers</button>
             <button className="btn-secondary" onClick={() => setShowAnswers('wordsearch')}>Word Search Answers</button>
+            <button className="btn-secondary" onClick={() => setShowAnswers('memorymatch')}>Memory Match Answers</button>
           </div>
         </section>
 
@@ -758,6 +760,23 @@ export default function Admin() {
                       ))}
                     </div>
                   </div>
+                </div>
+              )}
+
+              {showAnswers === 'memorymatch' && (
+                <div className="memory-grid" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                  {memoryPairs.flatMap(pair => [
+                    <div key={`term-${pair.id}`} className="memory-card flipped matched card-term" style={{ cursor: 'default' }}>
+                      <div className="card-inner">
+                        <div className="card-back"><span className="term-text">{pair.term}</span></div>
+                      </div>
+                    </div>,
+                    <div key={`def-${pair.id}`} className="memory-card flipped matched card-definition" style={{ cursor: 'default' }}>
+                      <div className="card-inner">
+                        <div className="card-back"><span className="definition-text">{pair.definition}</span></div>
+                      </div>
+                    </div>
+                  ])}
                 </div>
               )}
             </motion.div>
