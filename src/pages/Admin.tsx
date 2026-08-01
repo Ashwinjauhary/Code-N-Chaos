@@ -226,7 +226,7 @@ export default function Admin() {
   };
 
   const exportCSV = () => {
-    const headers = ['Rank', 'Name', 'Roll Number', 'Class', 'Section', 'Email', 'Phone', 'Emoji Score', 'Emoji Time (s)', 'Crossword Score', 'Crossword Time (s)', 'Memory Match Score', 'Memory Match Time (s)', 'Memory Match Moves', 'Word Search Score', 'Word Search Time (s)', 'Total Score', 'Total Time (s)', 'Games Completed'];
+    const headers = ['Rank', 'Name', 'Roll Number', 'Class', 'Section', 'Email', 'Phone', 'Emoji Score', 'Emoji Correct', 'Emoji Time (s)', 'Crossword Score', 'Crossword Words', 'Crossword Time (s)', 'Memory Match Score', 'Memory Match Moves', 'Memory Match Time (s)', 'Word Search Score', 'Word Search Words', 'Word Search Time (s)', 'Total Score', 'Total Time (s)', 'Games Completed'];
     const sorted = [...participants].sort((a, b) => b.total_score - a.total_score || a.total_time - b.total_time);
     const rows = sorted.map((p, i) => [
       i + 1,
@@ -237,13 +237,16 @@ export default function Admin() {
       p.email,
       p.phone_number,
       p.emoji_score ?? 0,
+      p.emoji_metadata?.correct ?? 0,
       p.emoji_time ?? 0,
       p.crossword_score ?? 0,
+      p.crossword_metadata?.correct ?? 0,
       p.crossword_time ?? 0,
       p.memorymatch_score ?? 0,
+      p.memorymatch_metadata?.moves ?? 0,
       p.memorymatch_time ?? 0,
-      p.memorymatch_moves ?? 0,
       p.wordsearch_score ?? 0,
+      p.wordsearch_metadata?.correct ?? 0,
       p.wordsearch_time ?? 0,
       p.total_score,
       p.total_time,
