@@ -140,7 +140,7 @@ export default function Landing() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left', lineHeight: '1.6' }}>
                 <section>
                   <h3 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.5rem' }}>🎮 1. Event Structure</h3>
-                  <p>The event consists of 3 tech-based mini-games: <strong>Word Search, Memory Match, and Crossword</strong>. You must complete them to secure your rank on the leaderboard.</p>
+                  <p>The event consists of 4 tech-based mini-games: <strong>Emoji, Word Search, Memory Match, and Crossword</strong>. You must complete them to secure your rank on the leaderboard.</p>
                 </section>
                 
                 <section>
