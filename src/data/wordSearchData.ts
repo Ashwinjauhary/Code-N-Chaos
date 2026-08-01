@@ -1,11 +1,9 @@
 export const WORD_LIST = [
-  'PYTHON', 'JAVA', 'HTML', 'CSS', 'JAVASCRIPT', 'REACT', 'NODE', 'EXPRESS',
-  'MONGODB', 'GITHUB', 'API', 'ARRAY', 'STACK', 'QUEUE', 'COMPILER', 'BINARY',
-  'ALGORITHM', 'FIREWALL', 'CLOUD', 'DATABASE', 'DOCKER', 'THREAD', 'KERNEL',
-  'POINTER', 'ENCRYPTION', 'NETWORK', 'LOOP', 'VARIABLE', 'DEBUG', 'CACHE',
+  'PYTHON', 'JAVA', 'HTML', 'CSS', 'JAVASCRIPT', 'REACT', 'NODE',
+  'GITHUB', 'API', 'ARRAY', 'CLOUD', 'DOCKER', 'NETWORK', 'LOOP', 'DEBUG',
 ];
 
-export const GRID_SIZE = 20;
+export const GRID_SIZE = 15;
 
 type Direction = [number, number];
 
