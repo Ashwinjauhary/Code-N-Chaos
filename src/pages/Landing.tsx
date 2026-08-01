@@ -165,8 +165,10 @@ export default function Landing() {
                   <h3 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.5rem' }}>⏱️ 3. Time Limits & Submission</h3>
                   <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem', listStyleType: 'square' }}>
                     <li><strong>Word Search:</strong> 25 Minutes duration.</li>
-                    <li><strong>Emoji, Memory Match & Crossword:</strong> You will get an option to <strong>"Submit Early"</strong> after a few minutes of gameplay if you are stuck.</li>
-                    <li>If the timer runs out, your current score will be auto-submitted.</li>
+                    <li><strong>Crossword:</strong> 10 Minutes duration. (You will get an option to <strong>"Submit Early"</strong> after 5 minutes).</li>
+                    <li><strong>Memory Match:</strong> 8 Minutes duration. (You will get an option to <strong>"Submit Early"</strong> after 5 minutes).</li>
+                    <li><strong>Emoji Game:</strong> 7 Minutes duration. (You can submit your game manually on the final question).</li>
+                    <li>If the timer runs out on any game, your current score will be auto-submitted.</li>
                   </ul>
                 </section>
                 
