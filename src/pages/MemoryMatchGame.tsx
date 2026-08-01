@@ -154,7 +154,7 @@ export default function MemoryMatchGame() {
       alert('Error saving score: ' + err.message + '\n\nMake sure you ran the Supabase SQL migration!');
       setGameOver(true);
     }
-  }, [participant, submitted]);
+  }, [participant, submitted, moves]);
 
   const prevScoreRef = useRef(0);
   const [timeElapsed, setTimeElapsed] = useState(0);
@@ -183,7 +183,7 @@ export default function MemoryMatchGame() {
     } catch (err) {
       console.error('Failed to submit live score:', err);
     }
-  }, [participant, submitted, gameOver]);
+  }, [participant, submitted, gameOver, moves]);
 
   const handleCardClick = (card: MemoryCard) => {
     // Ignore if: already checking, card already flipped, card already matched, or game over
