@@ -63,7 +63,8 @@ export default function CrosswordGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate, userGrid]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participant, navigate]);
   const [score, setScore] = useState(() => {
     if (!participant) return 0;
     const saved = sessionStorage.getItem(`crossword_score_${participant.id}`);

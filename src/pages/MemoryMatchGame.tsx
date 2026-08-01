@@ -100,7 +100,8 @@ export default function MemoryMatchGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate, matchedPairIds.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participant, navigate]);
 
   // Prevent accidental reload
   useEffect(() => {

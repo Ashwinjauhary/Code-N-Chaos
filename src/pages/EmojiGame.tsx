@@ -73,7 +73,8 @@ export default function EmojiGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate, answers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participant, navigate]);
   
   useEffect(() => {
     if (participant) {

@@ -59,7 +59,8 @@ export default function WordSearchGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate, foundWords.size]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participant, navigate]);
   const [score, setScore] = useState(() => {
     if (!participant) return 0;
     const saved = sessionStorage.getItem(`wordsearch_score_${participant.id}`);
