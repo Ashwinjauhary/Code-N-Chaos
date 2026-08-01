@@ -4,8 +4,8 @@ import { supabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { emojiQuestions } from '../data/emojiData';
-import { crosswordClues } from '../data/crosswordData';
-import { WORD_LIST, wordSearchPlacements } from '../data/wordSearchData';
+import { crosswordGrid, GRID_ROWS, GRID_COLS } from '../data/crosswordData';
+import { WORD_LIST, wordSearchPlacements, wordSearchGrid } from '../data/wordSearchData';
 
 interface ParticipantScore {
   participant_id: string;
@@ -695,31 +695,68 @@ export default function Admin() {
               )}
 
               {showAnswers === 'crossword' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {crosswordClues.map((c, i) => (
-                    <div key={i} style={{ padding: '1rem', background: '#1a1a2e', borderRadius: '8px', border: '1px solid #333' }}>
-                      <div style={{ color: '#aaa', fontSize: '0.9rem' }}>{c.number} {c.direction.toUpperCase()}</div>
-                      <div>{c.clue}</div>
-                      <div style={{ fontWeight: 'bold', color: '#00E5FF', marginTop: '0.5rem' }}>{c.answer}</div>
+                <div className="crossword-layout" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                  <div className="crossword-grid-container" style={{ margin: '0' }}>
+                    <div
+                      className="crossword-grid"
+                      style={{
+                        gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
+                        gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)`,
+                      }}
+                    >
+                      {crosswordGrid.map((row, r) =>
+                        row.map((cell, c) => (
+                          <div
+                            key={`${r}-${c}`}
+                            className={`crossword-cell ${
+                              cell.letter === null ? 'black' : 'white'
+                            } correct-word`}
+                          >
+                            {cell.number && <span className="cell-number">{cell.number}</span>}
+                            {cell.letter !== null && (
+                              <input
+                                type="text"
+                                readOnly
+                                value={cell.letter}
+                                className="cell-input"
+                              />
+                            )}
+                          </div>
+                        ))
+                      )}
                     </div>
-                  ))}
+                  </div>
                 </div>
               )}
 
               {showAnswers === 'wordsearch' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                    {WORD_LIST.map((w, i) => {
-                      const placement = wordSearchPlacements.find(p => p.word === w);
-                      return (
-                        <div key={i} style={{ padding: '0.5rem 1rem', background: '#1a1a2e', borderRadius: '4px', border: '1px solid #333' }}>
-                          <span style={{ fontWeight: 'bold', color: '#00E5FF' }}>{w}</span>
-                          <span style={{ color: '#aaa', marginLeft: '0.5rem', fontSize: '0.8rem' }}>
-                            ({placement ? `${placement.direction}` : 'Not Placed'})
-                          </span>
+                <div className="wordsearch-layout" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                  <div className="wordsearch-grid">
+                    {wordSearchGrid.map((row, r) => (
+                      <div key={r} className="wordsearch-row">
+                        {row.map((letter, c) => {
+                          const isFound = wordSearchPlacements.some(p => p.cells.some(cell => cell.row === r && cell.col === c));
+                          return (
+                            <div
+                              key={c}
+                              className={`wordsearch-cell ${isFound ? 'found' : ''}`}
+                            >
+                              {letter}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="word-list-panel" style={{ marginTop: '2rem' }}>
+                    <h3>Words to Find</h3>
+                    <div className="word-list-grid">
+                      {WORD_LIST.map((word) => (
+                        <div key={word} className="word-list-item found">
+                          {word}
                         </div>
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
