@@ -20,8 +20,8 @@ export default function MemoryMatchGame() {
     const saved = sessionStorage.getItem(`mm_cards_${participant.id}`);
     if (saved) {
       const parsedCards: MemoryCard[] = JSON.parse(saved);
-      // Auto-clear cache if it contains the old "+" style combinations or text words
-      if (parsedCards.some(c => c.content.includes('+') || c.content === 'Debug' || c.content === 'CPU' || c.content.length > 3)) {
+      // Auto-clear cache if it contains old formats or if card count doesn't match
+      if (parsedCards.length !== memoryPairs.length * 2 || parsedCards.some(c => c.content.includes('+') || c.content === 'Debug' || c.content === 'CPU' || c.content.length > 3)) {
         sessionStorage.removeItem(`mm_matched_${participant.id}`);
         sessionStorage.removeItem(`mm_score_${participant.id}`);
         sessionStorage.removeItem(`mm_moves_${participant.id}`);
