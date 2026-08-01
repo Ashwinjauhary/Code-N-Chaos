@@ -111,13 +111,14 @@ export default function WordSearchGame() {
         p_score: finalScore,
         p_time_seconds: timeSeconds,
         p_completed: true,
+        p_metadata: { correct: foundWords.size, total: WORD_LIST.length },
       });
       setGameOver(true);
     } catch (err) {
       console.error('Failed to submit score:', err);
       setGameOver(true);
     }
-  }, [participant, submitted]);
+  }, [participant, submitted, foundWords.size]);
 
   const submitLiveScore = async (currentScore: number) => {
     if (!participant || submitted || gameOver) return;
@@ -129,6 +130,7 @@ export default function WordSearchGame() {
         p_score: currentScore,
         p_time_seconds: timeSeconds,
         p_completed: false,
+        p_metadata: { correct: foundWords.size, total: WORD_LIST.length },
       });
     } catch (err) {
       console.error('Failed to submit live score:', err);

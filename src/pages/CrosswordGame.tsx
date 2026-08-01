@@ -118,6 +118,7 @@ export default function CrosswordGame() {
         p_score: finalScore,
         p_time_seconds: timeSeconds,
         p_completed: true,
+        p_metadata: { correct: (finalScore / POINTS_PER_CROSSWORD_WORD) || 0, total: crosswordClues.length },
       });
       setGameOver(true);
     } catch (err) {
@@ -153,6 +154,7 @@ export default function CrosswordGame() {
         p_score: currentScore,
         p_time_seconds: timeSeconds,
         p_completed: false,
+        p_metadata: { correct: (currentScore / POINTS_PER_CROSSWORD_WORD) || 0, total: crosswordClues.length },
       });
     } catch (err) {
       console.error('Failed to submit live score:', err);

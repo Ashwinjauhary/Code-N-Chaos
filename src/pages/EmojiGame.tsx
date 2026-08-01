@@ -134,6 +134,7 @@ export default function EmojiGame() {
         p_score: calculatedScore,
         p_time_seconds: timeSeconds,
         p_completed: true,
+        p_metadata: { correct: (calculatedScore / POINTS_PER_EMOJI) || 0, total: emojiQuestions.length },
       });
       playSuccess();
       setGameOver(true);
@@ -157,6 +158,7 @@ export default function EmojiGame() {
         p_score: currentScore,
         p_time_seconds: timeSeconds,
         p_completed: false,
+        p_metadata: { correct: (currentScore / POINTS_PER_EMOJI) || 0, total: emojiQuestions.length },
       });
     } catch (err) {
       console.error('Failed to submit live score:', err);

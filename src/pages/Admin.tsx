@@ -79,13 +79,13 @@ export default function Admin() {
         .from('game_scores')
         .select('participant_id, game, score, completion_time_seconds, metadata');
 
-      const scoreMap: Record<string, Record<string, { score: number, time: number, moves?: number }>> = {};
+      const scoreMap: Record<string, Record<string, { score: number, time: number, metadata?: any }>> = {};
       allScores?.forEach((s: any) => {
         if (!scoreMap[s.participant_id]) scoreMap[s.participant_id] = {};
         scoreMap[s.participant_id][s.game] = {
           score: s.score,
           time: s.completion_time_seconds,
-          moves: s.metadata?.moves
+          metadata: s.metadata
         };
       });
 
@@ -93,13 +93,16 @@ export default function Admin() {
         ...p,
         emoji_score: scoreMap[p.participant_id]?.emoji?.score,
         emoji_time: scoreMap[p.participant_id]?.emoji?.time,
+        emoji_metadata: scoreMap[p.participant_id]?.emoji?.metadata,
         crossword_score: scoreMap[p.participant_id]?.crossword?.score,
         crossword_time: scoreMap[p.participant_id]?.crossword?.time,
+        crossword_metadata: scoreMap[p.participant_id]?.crossword?.metadata,
         memorymatch_score: scoreMap[p.participant_id]?.memorymatch?.score,
         memorymatch_time: scoreMap[p.participant_id]?.memorymatch?.time,
-        memorymatch_moves: scoreMap[p.participant_id]?.memorymatch?.moves,
+        memorymatch_metadata: scoreMap[p.participant_id]?.memorymatch?.metadata,
         wordsearch_score: scoreMap[p.participant_id]?.wordsearch?.score,
         wordsearch_time: scoreMap[p.participant_id]?.wordsearch?.time,
+        wordsearch_metadata: scoreMap[p.participant_id]?.wordsearch?.metadata,
       }));
 
       setParticipants(enriched);
@@ -580,19 +583,22 @@ export default function Admin() {
                     <td>
                       <div>{p.emoji_score ?? '-'}</div>
                       <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.emoji_time ? `${p.emoji_time}s` : ''}</div>
+                      {p.emoji_metadata?.correct !== undefined && <div style={{ fontSize: '0.8em', color: 'var(--accent-orange)' }}>{p.emoji_metadata.correct}/{p.emoji_metadata.total} correct</div>}
                     </td>
                     <td>
                       <div>{p.crossword_score ?? '-'}</div>
                       <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.crossword_time ? `${p.crossword_time}s` : ''}</div>
+                      {p.crossword_metadata?.correct !== undefined && <div style={{ fontSize: '0.8em', color: 'var(--accent-orange)' }}>{p.crossword_metadata.correct}/{p.crossword_metadata.total} words</div>}
                     </td>
                     <td>
                       <div>{p.memorymatch_score ?? '-'}</div>
                       <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.memorymatch_time ? `${p.memorymatch_time}s` : ''}</div>
-                      {p.memorymatch_moves && <div style={{ fontSize: '0.8em', color: 'var(--accent-orange)' }}>{p.memorymatch_moves} moves</div>}
+                      {p.memorymatch_metadata?.moves !== undefined && <div style={{ fontSize: '0.8em', color: 'var(--accent-orange)' }}>{p.memorymatch_metadata.moves} moves</div>}
                     </td>
                     <td>
                       <div>{p.wordsearch_score ?? '-'}</div>
                       <div style={{ fontSize: '0.85em', opacity: 0.7 }}>{p.wordsearch_time ? `${p.wordsearch_time}s` : ''}</div>
+                      {p.wordsearch_metadata?.correct !== undefined && <div style={{ fontSize: '0.8em', color: 'var(--accent-orange)' }}>{p.wordsearch_metadata.correct}/{p.wordsearch_metadata.total} words</div>}
                     </td>
                     <td className="score-cell">{p.total_score}</td>
                     <td>
