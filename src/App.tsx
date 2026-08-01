@@ -37,7 +37,7 @@ function AppRoutes() {
 }
 
 import { useEffect } from 'react';
-import { playClick } from './utils/sfx';
+
 
 export default function App() {
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function App() {
       const target = e.target as HTMLElement;
       // Play click sound if the target is a button, a link, or inside one
       if (target.closest('button') || target.closest('a') || target.classList.contains('clickable')) {
-        playClick();
+        // click
       }
     };
     

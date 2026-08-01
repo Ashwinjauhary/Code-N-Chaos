@@ -15,7 +15,7 @@ import { useAntiCheat } from '../hooks/useAntiCheat';
 import Timer from '../components/Timer';
 import Layout from '../components/Layout';
 import AntiCheatOverlay from '../components/AntiCheatOverlay';
-import { playCorrect, playWrong, playSuccess } from '../utils/sfx';
+import { blastConfetti } from '../utils/confetti';
 
 export default function WordSearchGame() {
   const { participant } = useParticipant();
@@ -201,7 +201,6 @@ export default function WordSearchGame() {
     });
 
     if (matchedPlacement) {
-      playCorrect();
       const newFound = new Set(foundWords);
       newFound.add(matchedPlacement.word);
       setFoundWords(newFound);
@@ -215,14 +214,13 @@ export default function WordSearchGame() {
 
       // Check if all words found
       if (newFound.size === WORD_LIST.length && !gameOver) {
-        playSuccess();
+        blastConfetti();
         setGameOver(true);
         submitFinalScore(newScore);
       } else if (!gameOver) {
         submitLiveScore(newScore);
       }
     } else if (selectedWord.length >= 3) {
-      playWrong();
     }
 
     setHighlightedCells(new Set());

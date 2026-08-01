@@ -9,7 +9,7 @@ import { useAntiCheat } from '../hooks/useAntiCheat';
 import Timer from '../components/Timer';
 import Layout from '../components/Layout';
 import AntiCheatOverlay from '../components/AntiCheatOverlay';
-import { playCorrect, playWrong, playSuccess } from '../utils/sfx';
+import { blastConfetti } from '../utils/confetti';
 
 export default function MemoryMatchGame() {
   const { participant } = useParticipant();
@@ -204,7 +204,6 @@ export default function MemoryMatchGame() {
 
       if (firstCard.pairId === secondCard.pairId && firstCard.type !== secondCard.type) {
         // Match found!
-        playCorrect();
         const newMatched = [...matchedPairIds, firstCard.pairId];
         const newScore = score + POINTS_PER_MATCH;
         
@@ -222,13 +221,12 @@ export default function MemoryMatchGame() {
 
           // Check if all pairs matched
           if (newMatched.length === memoryPairs.length) {
-            playSuccess();
+            blastConfetti();
             submitFinalScore(newScore);
           }
         }, 600);
       } else {
-        // No match — flip back after delay
-        playWrong();
+        // No match - flip back after delay
         setTimeout(() => {
           setFlippedIds([]);
           setIsChecking(false);

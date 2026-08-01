@@ -1,12 +1,6 @@
 import confetti from 'canvas-confetti';
 
-export const playClick = () => {};
-
-export const playCorrect = () => {};
-
-export const playWrong = () => {};
-
-export const playSuccess = () => {
+export const blastConfetti = () => {
   confetti({
     particleCount: 150,
     spread: 80,
@@ -15,5 +9,3 @@ export const playSuccess = () => {
     disableForReducedMotion: true
   });
 };
-
-export const playWarning = () => {};
