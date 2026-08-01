@@ -17,13 +17,16 @@ interface ParticipantScore {
   section: string;
   emoji_score?: number;
   emoji_time?: number;
+  emoji_metadata?: any;
   crossword_score?: number;
   crossword_time?: number;
+  crossword_metadata?: any;
   memorymatch_score?: number;
   memorymatch_time?: number;
-  memorymatch_moves?: number;
+  memorymatch_metadata?: any;
   wordsearch_score?: number;
   wordsearch_time?: number;
+  wordsearch_metadata?: any;
 }
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || '';
