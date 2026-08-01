@@ -16,6 +16,7 @@ import { useAntiCheat } from '../hooks/useAntiCheat';
 import Timer from '../components/Timer';
 import Layout from '../components/Layout';
 import AntiCheatOverlay from '../components/AntiCheatOverlay';
+import { playCorrect, playSuccess } from '../utils/sfx';
 
 export default function CrosswordGame() {
   const { participant } = useParticipant();
@@ -194,11 +195,16 @@ export default function CrosswordGame() {
       }
     }
 
+    if (newCorrect.size > correctWords.size) {
+      playCorrect();
+    }
+
     setCorrectWords(newCorrect);
     setScore(newScore);
 
     // Auto-finish if all words correct
     if (newCorrect.size === crosswordClues.length && !gameOver) {
+      playSuccess();
       setGameOver(true);
       submitFinalScore(newScore);
     } else if (newScore !== prevScoreRef.current && !gameOver) {

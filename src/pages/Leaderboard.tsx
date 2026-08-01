@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import Avatar from '../components/Avatar';
+import confetti from 'canvas-confetti';
+import { useParticipant } from '../context/ParticipantContext';
 
 interface LeaderboardEntry {
   participant_id: string;
@@ -13,6 +16,7 @@ interface LeaderboardEntry {
 }
 
 export default function Leaderboard() {
+  const { participant } = useParticipant();
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +29,20 @@ export default function Leaderboard() {
 
     if (!error && data) {
       setEntries(data as LeaderboardEntry[]);
+      
+      // Blast confetti if current user is in top 3
+      if (participant) {
+        const top3 = (data as LeaderboardEntry[]).slice(0, 3);
+        if (top3.some(e => e.participant_id === participant.id)) {
+          confetti({
+            particleCount: 150,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#00E5FF', '#FF0055', '#FFEA00'],
+            disableForReducedMotion: true
+          });
+        }
+      }
     }
     setLoading(false);
   };
@@ -143,8 +161,13 @@ export default function Leaderboard() {
                         </span>
                       </td>
                       <td className="col-name">
-                        <span className="participant-name">{entry.name}</span>
-                        <span className="participant-roll">{entry.roll_number}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <Avatar seed={entry.roll_number} size={36} />
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span className="participant-name">{entry.name}</span>
+                            <span className="participant-roll">{entry.roll_number}</span>
+                          </div>
+                        </div>
                       </td>
                       <td className="col-score">
                         <span className="score-value">{entry.total_score}</span>

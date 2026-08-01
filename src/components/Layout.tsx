@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useParticipant } from '../context/ParticipantContext';
+import Avatar from './Avatar';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -35,9 +36,12 @@ export default function Layout({ children, showNav = true, fullScreen = false }:
                 >
                   Leaderboard
                 </Link>
-                <div className="nav-user">
-                  <span className="user-name">{participant?.name}</span>
-                  <span className="user-roll">{participant?.roll_number}</span>
+                <div className="nav-user" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <Avatar seed={participant?.roll_number || 'default'} size={32} />
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span className="user-name">{participant?.name}</span>
+                    <span className="user-roll">{participant?.roll_number}</span>
+                  </div>
                 </div>
                 <button onClick={logout} className="nav-logout">
                   Logout

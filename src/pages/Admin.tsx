@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 interface ParticipantScore {
   participant_id: string;
@@ -269,11 +270,47 @@ export default function Admin() {
     }
   };
 
-  // Speed bonus: top 3 fastest with all 3 games completed
   const speedBonusParticipants = participants
     .filter((p) => p.games_completed >= 3)
     .sort((a, b) => a.total_time - b.total_time)
     .slice(0, 3);
+
+  // Analytics Stats
+  const gameStats = () => {
+    let emojiScores = 0, emojiCount = 0, emojiTime = 0;
+    let crossScores = 0, crossCount = 0, crossTime = 0;
+    let wordScores = 0, wordCount = 0, wordTime = 0;
+    let memScores = 0, memCount = 0, memTime = 0;
+
+    participants.forEach(p => {
+      if (p.emoji_score !== undefined) { emojiScores += p.emoji_score; emojiCount++; emojiTime += (p.emoji_time || 0); }
+      if (p.crossword_score !== undefined) { crossScores += p.crossword_score; crossCount++; crossTime += (p.crossword_time || 0); }
+      if (p.wordsearch_score !== undefined) { wordScores += p.wordsearch_score; wordCount++; wordTime += (p.wordsearch_time || 0); }
+      if (p.memorymatch_score !== undefined) { memScores += p.memorymatch_score; memCount++; memTime += (p.memorymatch_time || 0); }
+    });
+
+    return [
+      { name: 'Emoji', avgScore: emojiCount ? Math.round(emojiScores / emojiCount) : 0, avgTime: emojiCount ? Math.round(emojiTime / emojiCount) : 0 },
+      { name: 'Crossword', avgScore: crossCount ? Math.round(crossScores / crossCount) : 0, avgTime: crossCount ? Math.round(crossTime / crossCount) : 0 },
+      { name: 'Word Search', avgScore: wordCount ? Math.round(wordScores / wordCount) : 0, avgTime: wordCount ? Math.round(wordTime / wordCount) : 0 },
+      { name: 'Mem Match', avgScore: memCount ? Math.round(memScores / memCount) : 0, avgTime: memCount ? Math.round(memTime / memCount) : 0 },
+    ];
+  };
+
+  const completionStats = () => {
+    const counts = [0, 0, 0, 0, 0];
+    participants.forEach(p => {
+      counts[p.games_completed] = (counts[p.games_completed] || 0) + 1;
+    });
+    return [
+      { name: '0 Games', value: counts[0] },
+      { name: '1 Game', value: counts[1] },
+      { name: '2 Games', value: counts[2] },
+      { name: '3+ Games', value: counts[3] + counts[4] },
+    ].filter(s => s.value > 0);
+  };
+
+  const COLORS = ['#FF4560', '#00E396', '#008FFB', '#FEB019'];
 
   if (!authenticated) {
     return (
@@ -355,6 +392,61 @@ export default function Admin() {
             <button className="btn-secondary" onClick={unlockAll} disabled={loading}>
               🔓 Unlock All
             </button>
+          </div>
+        </section>
+
+        {/* Analytics Dashboard */}
+        <section className="admin-section">
+          <h2>📊 Analytics Dashboard</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '1.5rem' }}>
+            <div className="admin-login-card" style={{ maxWidth: '100%' }}>
+              <h3>Average Scores</h3>
+              <div style={{ height: 300, width: '100%' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={gameStats()} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+                    <XAxis dataKey="name" stroke="#ccc" />
+                    <YAxis stroke="#ccc" />
+                    <RechartsTooltip contentStyle={{ backgroundColor: '#1a1a2e', borderColor: '#00E5FF' }} />
+                    <Legend />
+                    <Bar dataKey="avgScore" name="Avg Score" fill="#00E5FF" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="admin-login-card" style={{ maxWidth: '100%' }}>
+              <h3>Average Completion Time (Seconds)</h3>
+              <div style={{ height: 300, width: '100%' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={gameStats()} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+                    <XAxis dataKey="name" stroke="#ccc" />
+                    <YAxis stroke="#ccc" />
+                    <RechartsTooltip contentStyle={{ backgroundColor: '#1a1a2e', borderColor: '#FF0055' }} />
+                    <Legend />
+                    <Bar dataKey="avgTime" name="Avg Time (s)" fill="#FF0055" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="admin-login-card" style={{ maxWidth: '100%', gridColumn: 'span 2' }}>
+              <h3>Game Completion Rate</h3>
+              <div style={{ height: 300, width: '100%' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={completionStats()} cx="50%" cy="50%" labelLine={false} label={({name, percent}) => `${name} (${(percent * 100).toFixed(0)}%)`} outerRadius={100} fill="#8884d8" dataKey="value">
+                      {completionStats().map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <RechartsTooltip contentStyle={{ backgroundColor: '#1a1a2e', borderColor: '#FFEA00' }} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </div>
         </section>
 

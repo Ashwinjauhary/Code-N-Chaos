@@ -10,6 +10,7 @@ import { useAntiCheat } from '../hooks/useAntiCheat';
 import Timer from '../components/Timer';
 import Layout from '../components/Layout';
 import AntiCheatOverlay from '../components/AntiCheatOverlay';
+import { playSuccess } from '../utils/sfx';
 
 export default function EmojiGame() {
   const { participant } = useParticipant();
@@ -134,6 +135,7 @@ export default function EmojiGame() {
         p_time_seconds: timeSeconds,
         p_completed: true,
       });
+      playSuccess();
       setGameOver(true);
     } catch (err: any) {
       console.error('Failed to submit score:', err);

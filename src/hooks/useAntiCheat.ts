@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { playWarning } from '../utils/sfx';
 
 interface UseAntiCheatProps {
   isActive: boolean;
@@ -25,6 +26,7 @@ export function useAntiCheat({ isActive, onForceSubmit, maxWarnings = 2 }: UseAn
     setWarnings(newWarnings);
     setWarningMessage(message);
     setShowWarningModal(true);
+    playWarning();
   }, [isActive, showWarningModal, warnings, maxWarnings, onForceSubmit]);
 
   const dismissWarning = useCallback(async () => {
