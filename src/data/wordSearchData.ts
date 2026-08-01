@@ -3,7 +3,7 @@ export const WORD_LIST = [
   'MONGODB', 'GITHUB', 'API', 'ARRAY', 'STACK', 'QUEUE', 'DEBUG',
 ];
 
-export const GRID_SIZE = 20;
+export const GRID_SIZE = 15;
 
 type Direction = [number, number];
 
