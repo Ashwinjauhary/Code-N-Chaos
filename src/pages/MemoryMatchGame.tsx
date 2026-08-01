@@ -100,7 +100,7 @@ export default function MemoryMatchGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate]);
+  }, [participant, navigate, matchedPairIds.length]);
 
   // Prevent accidental reload
   useEffect(() => {

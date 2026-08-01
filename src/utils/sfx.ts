@@ -59,7 +59,7 @@ const getSynth = () => {
 };
 
 export const playClick = () => {
-  try { getSynth()?.playOscillator('square', 600, 0.05, 0.05, 800); } catch (e) {}
+  try { getSynth()?.playOscillator('square', 600, 0.05, 0.05, 800); } catch {}
 };
 
 export const playCorrect = () => {
@@ -68,7 +68,7 @@ export const playCorrect = () => {
     if (!s) return;
     s.playOscillator('square', 440, 0.1, 0.1, 880);
     setTimeout(() => s.playOscillator('square', 880, 0.15, 0.1, 1200), 100);
-  } catch (e) {}
+  } catch {}
 };
 
 export const playWrong = () => {
@@ -77,7 +77,7 @@ export const playWrong = () => {
     if (!s) return;
     s.playOscillator('sawtooth', 200, 0.2, 0.1, 100);
     s.playNoise(0.2, 0.2);
-  } catch (e) {}
+  } catch {}
 };
 
 import confetti from 'canvas-confetti';
@@ -90,7 +90,7 @@ export const playSuccess = () => {
     setTimeout(() => s.playOscillator('square', 554, 0.1, 0.1), 100);
     setTimeout(() => s.playOscillator('square', 659, 0.1, 0.1), 200);
     setTimeout(() => s.playOscillator('square', 880, 0.4, 0.1), 300);
-  } catch (e) {}
+  } catch {}
 
   confetti({
     particleCount: 150,
@@ -107,5 +107,5 @@ export const playWarning = () => {
     if (!s) return;
     s.playOscillator('sawtooth', 300, 0.1, 0.15, 150);
     setTimeout(() => s.playOscillator('sawtooth', 300, 0.15, 0.15, 150), 150);
-  } catch (e) {}
+  } catch {}
 };

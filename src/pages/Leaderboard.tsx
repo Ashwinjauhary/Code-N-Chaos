@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -20,7 +20,7 @@ export default function Leaderboard() {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchLeaderboard = async () => {
+  const fetchLeaderboard = useCallback(async () => {
     const { data, error } = await supabase
       .from('leaderboard')
       .select('*')
@@ -45,7 +45,7 @@ export default function Leaderboard() {
       }
     }
     setLoading(false);
-  };
+  }, [participant]);
 
   useEffect(() => {
     fetchLeaderboard();
@@ -65,7 +65,7 @@ export default function Leaderboard() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [fetchLeaderboard]);
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);

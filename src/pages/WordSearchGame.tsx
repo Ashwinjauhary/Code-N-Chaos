@@ -59,7 +59,7 @@ export default function WordSearchGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate]);
+  }, [participant, navigate, foundWords.size]);
   const [score, setScore] = useState(() => {
     if (!participant) return 0;
     const saved = sessionStorage.getItem(`wordsearch_score_${participant.id}`);

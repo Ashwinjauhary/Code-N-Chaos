@@ -63,7 +63,7 @@ export default function CrosswordGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate]);
+  }, [participant, navigate, userGrid]);
   const [score, setScore] = useState(() => {
     if (!participant) return 0;
     const saved = sessionStorage.getItem(`crossword_score_${participant.id}`);
@@ -213,7 +213,7 @@ export default function CrosswordGame() {
       prevScoreRef.current = newScore;
       submitLiveScore(newScore);
     }
-  }, [userGrid, gameOver, submitFinalScore, submitLiveScore]);
+  }, [userGrid, gameOver, submitFinalScore, submitLiveScore, correctWords.size]);
 
   const handleCellChange = (row: number, col: number, value: string) => {
     if (crosswordGrid[row][col].letter === null) return;

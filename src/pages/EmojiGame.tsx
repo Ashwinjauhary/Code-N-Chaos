@@ -73,7 +73,7 @@ export default function EmojiGame() {
       }
     }
     checkCompletion();
-  }, [participant, navigate]);
+  }, [participant, navigate, answers]);
   
   useEffect(() => {
     if (participant) {
