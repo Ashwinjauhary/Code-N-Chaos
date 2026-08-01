@@ -2066,3 +2066,41 @@ body {
   .org-logo { height: 30px !important; }
   .marquee-content { font-size: 1rem; }
 }
+
+/* ============================================================
+   Admin Modal
+   ============================================================ */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+}
+
+.admin-modal {
+  background: var(--bg-primary);
+  border: var(--border-thick);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-brutal-lg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-modal h2 {
+  margin-top: 0;
+  font-weight: 800;
+}
