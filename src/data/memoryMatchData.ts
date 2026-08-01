@@ -22,6 +22,12 @@ export const memoryPairs: MemoryPair[] = [
   { id: 8, term: '☕', definition: '☕' },
   { id: 9, term: '🍎', definition: '🍎' },
   { id: 10, term: '🤖', definition: '🤖' },
+  { id: 11, term: '🕸️', definition: '🕸️' },
+  { id: 12, term: '🎨', definition: '🎨' },
+  { id: 13, term: '🎮', definition: '🎮' },
+  { id: 14, term: '🐧', definition: '🐧' },
+  { id: 15, term: '♻️', definition: '♻️' },
+  { id: 16, term: '🌍', definition: '🌍' },
 ];
 
 export function generateCards(): MemoryCard[] {
