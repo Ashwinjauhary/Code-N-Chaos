@@ -271,7 +271,7 @@ export default function Admin() {
   };
 
   const speedBonusParticipants = participants
-    .filter((p) => p.games_completed >= 3)
+    .filter((p) => p.games_completed >= 4)
     .sort((a, b) => a.total_time - b.total_time)
     .slice(0, 3);
 
@@ -306,11 +306,12 @@ export default function Admin() {
       { name: '0 Games', value: counts[0] },
       { name: '1 Game', value: counts[1] },
       { name: '2 Games', value: counts[2] },
-      { name: '3+ Games', value: counts[3] + counts[4] },
+      { name: '3 Games', value: counts[3] },
+      { name: '4 Games', value: counts[4] },
     ].filter(s => s.value > 0);
   };
 
-  const COLORS = ['#FF4560', '#00E396', '#008FFB', '#FEB019'];
+  const COLORS = ['#FF4560', '#00E396', '#008FFB', '#FEB019', '#775DD0'];
 
   if (!authenticated) {
     return (

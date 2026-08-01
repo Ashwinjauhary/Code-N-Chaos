@@ -174,7 +174,7 @@ export default function Leaderboard() {
                       </td>
                       <td className="col-time">{formatTime(entry.total_time)}</td>
                       <td className="col-games">
-                        <span className="games-badge">{entry.games_completed}/3</span>
+                        <span className="games-badge">{entry.games_completed}/4</span>
                       </td>
                     </motion.tr>
                   );
