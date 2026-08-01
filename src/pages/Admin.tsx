@@ -1,8 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { emojiQuestions } from '../data/emojiData';
+import { crosswordClues } from '../data/crosswordData';
+import { WORD_LIST, wordSearchPlacements } from '../data/wordSearchData';
 
 interface ParticipantScore {
   participant_id: string;
@@ -46,6 +49,7 @@ export default function Admin() {
   const [newParticipant, setNewParticipant] = useState({ name: '', roll_number: '', class: '', section: '', email: '', phone_number: '' });
   const [sortBy, setSortBy] = useState<'total_score' | 'name' | 'total_time'>('total_score');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [showAnswers, setShowAnswers] = useState<string | null>(null);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -405,6 +409,16 @@ export default function Admin() {
           </div>
         </section>
 
+        {/* Answer Keys */}
+        <section className="admin-section">
+          <h2>🔑 Answer Keys (Admin Only)</h2>
+          <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+            <button className="btn-secondary" onClick={() => setShowAnswers('emoji')}>Emoji Answers</button>
+            <button className="btn-secondary" onClick={() => setShowAnswers('crossword')}>Crossword Answers</button>
+            <button className="btn-secondary" onClick={() => setShowAnswers('wordsearch')}>Word Search Answers</button>
+          </div>
+        </section>
+
         {/* Analytics Dashboard */}
         <section className="admin-section">
           <h2>📊 Analytics Dashboard</h2>
@@ -645,6 +659,74 @@ export default function Admin() {
           )}
         </section>
       </div>
+      
+      {/* Answer Keys Modal */}
+      <AnimatePresence>
+        {showAnswers && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="admin-modal-overlay"
+            onClick={() => setShowAnswers(null)}
+          >
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              className="admin-modal"
+              onClick={(e) => e.stopPropagation()}
+              style={{ width: '80%', maxHeight: '80vh', overflowY: 'auto' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <h2 style={{ color: '#00E5FF' }}>Answer Key: {showAnswers.toUpperCase()}</h2>
+                <button className="btn-secondary" onClick={() => setShowAnswers(null)}>Close</button>
+              </div>
+              
+              {showAnswers === 'emoji' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {emojiQuestions.map((q, i) => (
+                    <div key={i} style={{ padding: '1rem', background: '#1a1a2e', borderRadius: '8px', border: '1px solid #333' }}>
+                      <span style={{ fontSize: '1.5rem', marginRight: '1rem' }}>{q.emojis}</span>
+                      <span style={{ fontWeight: 'bold', color: '#00E5FF' }}>{q.answer}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {showAnswers === 'crossword' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {crosswordClues.map((c, i) => (
+                    <div key={i} style={{ padding: '1rem', background: '#1a1a2e', borderRadius: '8px', border: '1px solid #333' }}>
+                      <div style={{ color: '#aaa', fontSize: '0.9rem' }}>{c.number} {c.direction.toUpperCase()}</div>
+                      <div>{c.clue}</div>
+                      <div style={{ fontWeight: 'bold', color: '#00E5FF', marginTop: '0.5rem' }}>{c.answer}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {showAnswers === 'wordsearch' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                    {WORD_LIST.map((w, i) => {
+                      const placement = wordSearchPlacements.find(p => p.word === w);
+                      return (
+                        <div key={i} style={{ padding: '0.5rem 1rem', background: '#1a1a2e', borderRadius: '4px', border: '1px solid #333' }}>
+                          <span style={{ fontWeight: 'bold', color: '#00E5FF' }}>{w}</span>
+                          <span style={{ color: '#aaa', marginLeft: '0.5rem', fontSize: '0.8rem' }}>
+                            ({placement ? `${placement.direction}` : 'Not Placed'})
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Layout>
   );
 }
