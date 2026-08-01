@@ -4,7 +4,7 @@ export const WORD_LIST = [
   'ALGORITHM', 'CLOUD', 'DATABASE', 'DOCKER', 'THREAD', 'KERNEL', 'NETWORK', 'DEBUG', 'CACHE',
 ];
 
-export const GRID_SIZE = 15;
+export const GRID_SIZE = 18;
 
 type Direction = [number, number];
 
@@ -42,7 +42,7 @@ function generateGrid(): { grid: string[][]; placements: PlacedWord[] } {
     let placed = false;
 
     // Try random placements
-    for (let attempt = 0; attempt < 200; attempt++) {
+    for (let attempt = 0; attempt < 2000; attempt++) {
       const dir = DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)];
 
       const startRow = Math.floor(Math.random() * GRID_SIZE);
