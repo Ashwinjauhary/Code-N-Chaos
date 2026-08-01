@@ -140,7 +140,13 @@ export default function Landing() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left', lineHeight: '1.6' }}>
                 <section>
                   <h3 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.5rem' }}>🎮 1. Event Structure</h3>
-                  <p>The event consists of 4 tech-based mini-games: <strong>Emoji, Word Search, Memory Match, and Crossword</strong>. You must complete them to secure your rank on the leaderboard.</p>
+                  <p>The event consists of 4 tech-based mini-games. You must complete them to secure your rank on the leaderboard:</p>
+                  <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem', listStyleType: 'square' }}>
+                    <li><strong>Emoji Game:</strong> Guess the tech term from the given emojis. (10 Points per question)</li>
+                    <li><strong>Crossword:</strong> Solve the crossword puzzle using the given tech clues. (5 Points per word)</li>
+                    <li><strong>Word Search:</strong> Find all the hidden tech words in the grid. (2 Points per word)</li>
+                    <li><strong>Memory Match:</strong> Match the tech terms with their correct definitions. (5 Points per match)</li>
+                  </ul>
                 </section>
                 
                 <section>
@@ -159,7 +165,7 @@ export default function Landing() {
                   <h3 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '0.5rem' }}>⏱️ 3. Time Limits & Submission</h3>
                   <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem', listStyleType: 'square' }}>
                     <li><strong>Word Search:</strong> 25 Minutes duration.</li>
-                    <li><strong>Memory Match & Crossword:</strong> You will get an option to <strong>"Submit Early"</strong> after 5 minutes of gameplay.</li>
+                    <li><strong>Emoji, Memory Match & Crossword:</strong> You will get an option to <strong>"Submit Early"</strong> after a few minutes of gameplay if you are stuck.</li>
                     <li>If the timer runs out, your current score will be auto-submitted.</li>
                   </ul>
                 </section>
