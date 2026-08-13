@@ -17,8 +17,8 @@ export default function Layout({ children, showNav = true, fullScreen = false }:
     <div className={`app-layout ${fullScreen ? 'full-screen' : ''}`}>
       {showNav && (
         <nav className="app-nav">
-          <Link to={isLoggedIn ? '/lobby' : '/'} className="nav-brand">
-            <span className="brand-icon">⚡</span>
+          <Link to={isLoggedIn ? '/lobby' : '/'} className="nav-brand" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <img src="/Code_Chaos_Logo.png" alt="Logo" style={{ height: '36px' }} />
             <span className="brand-text">Code N Chaos</span>
           </Link>
           <div className="nav-links">

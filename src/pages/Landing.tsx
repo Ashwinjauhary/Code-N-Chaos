@@ -90,6 +90,18 @@ export default function Landing() {
           </div>
         </div>
 
+        {/* POSTER SECTION */}
+        <section className="features-section" style={{ paddingBottom: '0' }}>
+          <h2>EVENT POSTER</h2>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+            <img 
+              src="/Code_Chaos_poster.png" 
+              alt="Event Poster" 
+              style={{ maxWidth: '100%', height: 'auto', maxHeight: '600px', borderRadius: '8px', border: '4px solid #000', boxShadow: '12px 12px 0 #000', transform: 'rotate(-1deg)' }} 
+            />
+          </div>
+        </section>
+
         {/* FEATURES SECTION */}
         <section className="features-section">
           <h2>WHAT TO EXPECT</h2>
