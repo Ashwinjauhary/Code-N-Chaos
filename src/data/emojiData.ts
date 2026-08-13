@@ -16,7 +16,7 @@ export const emojiQuestions: EmojiQuestion[] = [
     id: 2,
     emojis: '🌐 + 🕷️',
     answer: 'Web Crawler',
-    acceptedAnswers: ['web crawler', 'webcrawler'],
+    acceptedAnswers: ['web crawler', 'webcrawler', 'web crawling'],
   },
   {
     id: 3,
