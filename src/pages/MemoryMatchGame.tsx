@@ -152,8 +152,8 @@ export default function MemoryMatchGame() {
       setGameOver(true);
     } catch (err: any) {
       console.error('Failed to submit score:', err);
-      alert('Error saving score: ' + err.message + '\n\nMake sure you ran the Supabase SQL migration!');
-      setGameOver(true);
+      setSubmitted(false);
+      alert('⚠️ Network Error! Your score could not be saved.\n\nPlease check your internet connection and try submitting again.');
     }
   }, [participant, submitted, moves]);
 

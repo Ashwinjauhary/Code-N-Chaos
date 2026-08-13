@@ -117,7 +117,8 @@ export default function WordSearchGame() {
       setGameOver(true);
     } catch (err) {
       console.error('Failed to submit score:', err);
-      setGameOver(true);
+      setSubmitted(false);
+      alert('⚠️ Network Error! Your score could not be saved.\n\nPlease check your internet connection and try submitting again.');
     }
   }, [participant, submitted, foundWords.size]);
 

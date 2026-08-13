@@ -141,9 +141,8 @@ export default function EmojiGame() {
       setGameOver(true);
     } catch (err: any) {
       console.error('Failed to submit score:', err);
-      alert('Error saving score: ' + (err.message || 'Unknown Error') + '\n\nPlease verify your Supabase database has the latest submit_score function.');
-      // Still show game over if offline/failed so they don't get stuck
-      setGameOver(true);
+      setSubmitted(false);
+      alert('⚠️ Network Error! Your score could not be saved.\n\nPlease check your internet connection and try submitting again.');
     }
   }, [answers, participant, submitted]);
 
