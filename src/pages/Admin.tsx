@@ -169,19 +169,19 @@ export default function Admin() {
     if (!window.confirm("Are you sure? This will submit a score of 0 for any participant who hasn't completed unlocked games.")) return;
     setLoading(true);
     const games = ['emoji', 'crossword', 'memorymatch', 'wordsearch'];
-    
+
     // We will find all missing scores for unlocked games and submit 0
     const promises: any[] = [];
-    
+
     participants.forEach((p) => {
       games.forEach((game) => {
         if (unlockedGames.includes(game)) {
-          const hasScore = 
+          const hasScore =
             (game === 'emoji' && p.emoji_score !== undefined) ||
             (game === 'crossword' && p.crossword_score !== undefined) ||
             (game === 'wordsearch' && p.wordsearch_score !== undefined) ||
             (game === 'memorymatch' && p.memorymatch_score !== undefined);
-            
+
           if (!hasScore) {
             promises.push(
               supabase.rpc('submit_score', {
@@ -195,7 +195,7 @@ export default function Admin() {
         }
       });
     });
-    
+
     await Promise.allSettled(promises);
     await fetchData();
     setLoading(false);
@@ -460,7 +460,7 @@ export default function Admin() {
               <div style={{ height: 300, width: '100%' }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
-                    <Pie data={completionStats()} cx="50%" cy="50%" labelLine={false} label={({name, percent}) => `${name} (${((percent || 0) * 100).toFixed(0)}%)`} outerRadius={100} fill="#8884d8" dataKey="value">
+                    <Pie data={completionStats()} cx="50%" cy="50%" labelLine={false} label={({ name, percent }) => `${name} (${((percent || 0) * 100).toFixed(0)}%)`} outerRadius={100} fill="#8884d8" dataKey="value">
                       {completionStats().map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
@@ -498,17 +498,17 @@ export default function Admin() {
               {showAddForm ? 'Cancel' : '➕ Add Participant'}
             </button>
           </div>
-          
+
           {showAddForm && (
             <div className="admin-login-card" style={{ marginBottom: '2rem', textAlign: 'left', maxWidth: '100%' }}>
               <h3>Add New Participant</h3>
               <form onSubmit={handleAddParticipant} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <input required placeholder="Full Name" value={newParticipant.name} onChange={e => setNewParticipant({...newParticipant, name: e.target.value})} />
-                <input required placeholder="Roll Number" value={newParticipant.roll_number} onChange={e => setNewParticipant({...newParticipant, roll_number: e.target.value})} />
-                <input required placeholder="Class" value={newParticipant.class} onChange={e => setNewParticipant({...newParticipant, class: e.target.value})} />
-                <input required placeholder="Section" value={newParticipant.section} onChange={e => setNewParticipant({...newParticipant, section: e.target.value})} />
-                <input required type="email" placeholder="Email" value={newParticipant.email} onChange={e => setNewParticipant({...newParticipant, email: e.target.value})} />
-                <input required type="tel" placeholder="Phone Number" value={newParticipant.phone_number} onChange={e => setNewParticipant({...newParticipant, phone_number: e.target.value})} />
+                <input required placeholder="Full Name" value={newParticipant.name} onChange={e => setNewParticipant({ ...newParticipant, name: e.target.value })} />
+                <input required placeholder="Roll Number" value={newParticipant.roll_number} onChange={e => setNewParticipant({ ...newParticipant, roll_number: e.target.value })} />
+                <input required placeholder="Class" value={newParticipant.class} onChange={e => setNewParticipant({ ...newParticipant, class: e.target.value })} />
+                <input required placeholder="Section" value={newParticipant.section} onChange={e => setNewParticipant({ ...newParticipant, section: e.target.value })} />
+                <input required type="email" placeholder="Email" value={newParticipant.email} onChange={e => setNewParticipant({ ...newParticipant, email: e.target.value })} />
+                <input required type="tel" placeholder="Phone Number" value={newParticipant.phone_number} onChange={e => setNewParticipant({ ...newParticipant, phone_number: e.target.value })} />
                 <div style={{ gridColumn: 'span 2' }}>
                   <button type="submit" className="btn-primary" disabled={loading} style={{ width: '100%' }}>
                     Save Participant
@@ -540,8 +540,8 @@ export default function Admin() {
                       <div style={{ fontSize: '0.8em', opacity: 0.7 }}>{p.email}</div>
                     </td>
                     <td>
-                      <button 
-                        className="btn-danger" 
+                      <button
+                        className="btn-danger"
                         style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
                         onClick={() => handleRemoveParticipant(p.participant_id, p.name)}
                         disabled={loading}
@@ -659,7 +659,7 @@ export default function Admin() {
           )}
         </section>
       </div>
-      
+
       {/* Answer Keys Modal */}
       <AnimatePresence>
         {showAnswers && (
@@ -682,7 +682,7 @@ export default function Admin() {
                 <h2 style={{ color: '#00E5FF' }}>Answer Key: {showAnswers.toUpperCase()}</h2>
                 <button className="btn-secondary" onClick={() => setShowAnswers(null)}>Close</button>
               </div>
-              
+
               {showAnswers === 'emoji' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {emojiQuestions.map((q, i) => (
@@ -708,9 +708,8 @@ export default function Admin() {
                         row.map((cell, c) => (
                           <div
                             key={`${r}-${c}`}
-                            className={`crossword-cell ${
-                              cell.letter === null ? 'black' : 'white'
-                            } correct-word`}
+                            className={`crossword-cell ${cell.letter === null ? 'black' : 'white'
+                              } correct-word`}
                           >
                             {cell.number && <span className="cell-number">{cell.number}</span>}
                             {cell.letter !== null && (

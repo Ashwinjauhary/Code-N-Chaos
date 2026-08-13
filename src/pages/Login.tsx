@@ -52,39 +52,9 @@ export default function Login() {
         return;
       }
 
-      // Create new participant
-      const { data: newParticipant, error: insertError } = await supabase
-        .from('participants')
-        .insert({
-          name: name.trim(),
-          roll_number: rollNumber.trim().toUpperCase(),
-          email: email.trim(),
-          phone_number: phoneNumber.trim(),
-          class: className.trim(),
-          section: section.trim().toUpperCase(),
-        })
-        .select()
-        .single();
-
-      if (insertError) {
-        if (insertError.code === '23505') {
-          setError('This roll number is already registered. Please try again.');
-        } else {
-          throw insertError;
-        }
-        return;
-      }
-
-      setParticipant({
-        id: newParticipant.id,
-        name: newParticipant.name,
-        roll_number: newParticipant.roll_number,
-        email: newParticipant.email,
-        phone_number: newParticipant.phone_number,
-        class: newParticipant.class,
-        section: newParticipant.section,
-      });
-      navigate('/lobby');
+      // If not found, show error
+      setError('You are not registered for this event. Please contact the administrator.');
+      return;
     } catch (err: any) {
       setError(err.message || 'Something went wrong. Please try again.');
     } finally {
