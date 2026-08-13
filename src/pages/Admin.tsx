@@ -493,7 +493,7 @@ export default function Admin() {
         {/* Participant Management */}
         <section className="admin-section">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h2>👥 Participant Management</h2>
+            <h2>👥 Participant Management <span style={{ fontSize: '1rem', opacity: 0.7, fontWeight: 'normal' }}>({participants.length} Total)</span></h2>
             <button className="btn-primary" onClick={() => setShowAddForm(!showAddForm)}>
               {showAddForm ? 'Cancel' : '➕ Add Participant'}
             </button>
