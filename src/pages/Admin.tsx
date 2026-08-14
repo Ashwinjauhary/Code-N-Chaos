@@ -503,6 +503,9 @@ export default function Admin() {
                 onChange={e => setSearchQuery(e.target.value)}
                 style={{ padding: '0.5rem', borderRadius: '4px', border: '2px solid var(--border-color)', width: '250px' }}
               />
+              <button className="btn-secondary" onClick={exportCSV}>
+                📥 Export CSV
+              </button>
               <button className="btn-primary" onClick={() => setShowAddForm(!showAddForm)}>
                 {showAddForm ? 'Cancel' : '➕ Add Participant'}
               </button>
