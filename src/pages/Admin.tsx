@@ -50,6 +50,7 @@ export default function Admin() {
   const [sortBy, setSortBy] = useState<'total_score' | 'name' | 'total_time'>('total_score');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
   const [showAnswers, setShowAnswers] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -492,11 +493,20 @@ export default function Admin() {
 
         {/* Participant Management */}
         <section className="admin-section">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
             <h2>👥 Participant Management <span style={{ fontSize: '1rem', opacity: 0.7, fontWeight: 'normal' }}>({participants.length} Total)</span></h2>
-            <button className="btn-primary" onClick={() => setShowAddForm(!showAddForm)}>
-              {showAddForm ? 'Cancel' : '➕ Add Participant'}
-            </button>
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+              <input 
+                type="text" 
+                placeholder="Search by Name or Roll No..." 
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                style={{ padding: '0.5rem', borderRadius: '4px', border: '2px solid var(--border-color)', width: '250px' }}
+              />
+              <button className="btn-primary" onClick={() => setShowAddForm(!showAddForm)}>
+                {showAddForm ? 'Cancel' : '➕ Add Participant'}
+              </button>
+            </div>
           </div>
 
           {showAddForm && (
@@ -530,7 +540,9 @@ export default function Admin() {
                 </tr>
               </thead>
               <tbody>
-                {sortedParticipants.map(p => (
+                {sortedParticipants
+                  .filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.roll_number.includes(searchQuery))
+                  .map(p => (
                   <tr key={`manage-${p.participant_id}`}>
                     <td>{p.name}</td>
                     <td>{p.roll_number}</td>
