@@ -97,3 +97,4 @@ Open [http://localhost:5173](http://localhost:5173)
 5. ✅ Open `/admin` on organizer laptop
 6. ✅ Participants open the site and login
 7. ✅ Start event → Unlock games → Monitor
+"# Innovate-X" 
